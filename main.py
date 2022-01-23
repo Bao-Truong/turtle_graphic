@@ -75,7 +75,7 @@ def random_walk(timmy, distance=30, step=50, speed=0, pensize=5, do_random_color
         “slowest”: 1
     """
 
-    if speed in ["0,10,6,3,1"]:
+    if speed in [0, 10, 6, 3, 1]:
         timmy.speed(speed)
     else:
         timmy.speed(0)
@@ -89,9 +89,26 @@ def random_walk(timmy, distance=30, step=50, speed=0, pensize=5, do_random_color
         timmy.forward(distance)
 
 
+def spirograph(timmy, speed=0, pensize=1, size_of_gap=5, radius=200, extent=None, steps=50):
+    if speed in [0, 10, 6, 3, 1]:
+        timmy.speed(speed)
+    else:
+        timmy.speed(0)
+    timmy.pensize(pensize)
+    current_heading = 0
+    for i in range(round(360/size_of_gap)):
+        # Cannot use Left/right because it will rotate the turtle next direcion +left, not from the beginning position([preverse the 360 degree])
+        timmy.setheading(current_heading+size_of_gap)
+        current_heading = timmy.heading()
+        random_color(timmy)
+        timmy.circle(radius, extent, steps)
+
+
 timmy_the_turtle.shape("arrow")
 timmy_the_turtle.color("coral")
-random_walk(timmy_the_turtle, step=200)
+
+
+spirograph(timmy_the_turtle)
 
 screen = Screen()
 screen.exitonclick()
